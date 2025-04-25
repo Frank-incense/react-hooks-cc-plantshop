@@ -1,9 +1,11 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
-const PlantContext = createContext()
+export const PlantContext = createContext();
+const apiUrl = "http://localhost:6001/plants";
 
 function PlantContextProvider({children}){
-    const [plants, setPlants] = useState([])
+    const [plants, setPlants] = useState([]);
+
     useEffect(()=>{
         fetch(apiUrl)
         .then(r => r.json())
@@ -15,3 +17,5 @@ function PlantContextProvider({children}){
         </PlantContext.Provider>
     )
 }
+
+export default PlantContextProvider

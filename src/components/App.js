@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "./Header";
 import PlantPage from "./PlantPage";
+import PlantContextProvider, { PlantContext } from "./PlantContext";
+
 
 function App() {
   return (
     <div className="app">
-      <Header />
-      <PlantPage />
+      <PlantContextProvider>
+          <Header />
+          <PlantPage />
+      </PlantContextProvider>
     </div>
   );
 }

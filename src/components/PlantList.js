@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PlantCard from "./PlantCard";
-const apiUrl = "http://localhost:6001/plants"
+import { PlantContext } from "./PlantContext";
+
 
 function PlantList() {
-  const [plants, setPlants] = useState([])
-  useEffect(()=>{
-    fetch(apiUrl)
-    .then(r => r.json())
-    .then(plants => setPlants(plants))
-  }, [])
+  const plants = useContext(PlantContext)
+  
   return (
     <ul className="cards">
       {/* render PlantCards components in here */}
