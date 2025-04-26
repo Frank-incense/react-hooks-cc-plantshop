@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function NewPlantForm({plants, updatePlants }) {
+function NewPlantForm({updatePlants }) {
  
   const [newPlant, setNewPlant] = useState({
     name: "",
@@ -35,7 +35,6 @@ function NewPlantForm({plants, updatePlants }) {
     }
     )
     setNewPlant({
-      id: plants.length + 1,
       name: "",
       image: "",
       price: 0.0

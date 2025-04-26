@@ -1,9 +1,10 @@
 import React from "react";
 
-function Search() {
+function Search({onSearch}) {
   function handleSearch(e) {
     const searchTerm = e.target.value.toLowerCase();
     console.log("Searching for:", searchTerm);
+    onSearch(searchTerm);
   }
   return (
     <div className="searchbar">
@@ -12,7 +13,7 @@ function Search() {
         type="text"
         id="search"
         placeholder="Type a name to search..."
-        onChange={(e) => console.log("Searching...")}
+        onChange={handleSearch}
       />
     </div>
   );
