@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import PlantCard from "./PlantCard";
-import { PlantContext } from "./PlantContext";
 
-
-function PlantList() {
-  const plants = useContext(PlantContext)
+function PlantList({plants}) {
   
   return (
     <ul className="cards">
       {/* render PlantCards components in here */}
       {
+        plants.length > 0 ?
         plants.map(plant => {
           return <PlantCard key={plant.id} plant={plant}/>
         })
+        :
+        <h1>Loading...</h1>
       }
     </ul>
   );

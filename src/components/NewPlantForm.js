@@ -1,27 +1,45 @@
-import React, { useContext, useState } from "react";
-import { PlantContext } from "./PlantContext";
+import React, { useState } from "react";
 
-function NewPlantForm() {
-  const plants = useContext(PlantContext);
-  const id = plants.length;
+function NewPlantForm({plants, updatePlants }) {
+ 
   const [newPlant, setNewPlant] = useState({
-    id: 0,
     name: "",
     image: "",
     price: 0.0
   })
 
   function handleChange(e){
+    const {name, value}= e.target
+    console.log(newPlant);
     setNewPlant({
       ...newPlant,
-      [e.target.name]: e.target.value
+      [name]: value
     })
   }
 
   function handleSubmit(e){
     e.preventDefault()
-    console.log(e)
-    fetch()
+    console.log(newPlant);
+    fetch("http://localhost:6001/plants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/JSON",
+      },
+      body: JSON.stringify(newPlant)
+    })
+    .then(r => r.json())
+    .then(plant => {
+      updatePlants(plant);
+    }).catch((error) => {
+      console.error("Error:", error);
+    }
+    )
+    setNewPlant({
+      id: plants.length + 1,
+      name: "",
+      image: "",
+      price: 0.0
+    })
   }
 
   return (
@@ -47,7 +65,7 @@ function NewPlantForm() {
         name="price" 
         step="0.01" 
         placeholder="Price" 
-        value={newPlant.image}
+        value={newPlant.price}
         onChange={handleChange}/>
         <button type="submit">Add Plant</button>
       </form>
