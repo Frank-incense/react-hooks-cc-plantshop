@@ -7,35 +7,35 @@ import Search from "./Search";
 function PlantPage() {
 
   const [plantslist, setPlantsList] = useState([]);
-  const [filteredPlants, setFilteredPlants] = useState(plantslist)
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   useEffect(()=>{
     fetch("http://localhost:6001/plants")
     .then(r => r.json())
     .then(plants => {
       setPlantsList(plants)
-      setFilteredPlants(plants)
     })
   }, []);
   
   function handleUpdate(plant){
     setPlantsList([...plantslist,plant])
-    setFilteredPlants([...plantslist,plant])
   }
 
   function handleSearch(searchTerm) {
-    console.log("Searching for:", searchTerm);
-    const filtered = plantslist.filter((plant) => {
-      plant.name.toLowerCase().includes(searchTerm.toLowerCase())
-    });
-    setFilteredPlants(filtered);
+    setSearchTerm(searchTerm);
+    
   }
+  const filtered = plantslist.filter((plant) => {
+    if(plant.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      return true;
+    }
+  });
   
   return (
     <main>
       <NewPlantForm updatePlants={handleUpdate}  />
       <Search onSearch={handleSearch}/>
-      <PlantList plants={filteredPlants}/>
+      <PlantList plants={filtered}/>
     </main>
   );
 }

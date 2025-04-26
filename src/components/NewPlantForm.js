@@ -19,7 +19,7 @@ function NewPlantForm({updatePlants }) {
 
   function handleSubmit(e){
     e.preventDefault()
-    console.log(newPlant);
+    
     fetch("http://localhost:6001/plants", {
       method: "POST",
       headers: {
